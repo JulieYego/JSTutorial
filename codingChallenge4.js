@@ -1,4 +1,5 @@
 const bill = 430;
+// const bill = 40;
 
 /* Write your code below. Good luck! 🙂 */
 
