@@ -7,27 +7,25 @@ const calcTip = function (bill) {
 };
 
 for (let i = 0; i < bills.length; i++) {
-  tips.push(calcTip(bills[i]));
+  const tip = calcTip(bills[i]);
+  tips.push(tip);
+  totals.push(tip + bills[i]);
 }
 
-for (let j = 0; j < tips.length; j++) {
-  totals.push(tips[j] + bills[j]);
-}
 console.log('Tips', tips);
-console.log('totals', totals);
+console.log('Totals', totals);
 
 function calcAverage(arr) {
   let sum = 0;
-  //   console.log('hdsnvcj');
   for (let i = 0; i < arr.length; i++) {
-    sum = sum + arr[i];
+    sum += arr[i];
   }
-  //   console.log(sum);
   return sum / arr.length;
 }
 
-const average = calcAverage(bills);
+const average = calcAverage(totals);
 console.log('Average', average);
+
 // Let's improve Steven's tip calculator even more, this time using loops!
 
 // Your tasks:
