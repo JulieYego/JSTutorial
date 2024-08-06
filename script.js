@@ -43,7 +43,7 @@ document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('.score').textContent = score;
   document.querySelector('.number').textContent = '?';
   document.querySelector('.guess').value = '';
-  document.querySelector('body').style.backgroundColor = '#B4D6CD';
+  document.querySelector('body').style.backgroundColor = '#606676';
   document.querySelector('.number').style.width = '15rem';
 });
 
