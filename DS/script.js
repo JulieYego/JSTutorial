@@ -99,3 +99,63 @@ add(8, 2, 5, 3, 2, 1);
 const x = [23, 5, 7];
 restaurant.orderPizza('bacon', 'pepperoni', 'mushrooms');
 restaurant.orderPizza('bacon', 'pepperoni', 'mushrooms');
+
+// Short circuiting
+console.log('------OR--------');
+console.log(3 || 'Dreamer'); // 3
+console.log('' || 'Dreamer'); // Dreamer
+console.log(true || 0); // true
+console.log(undefined || null); // null
+console.log(undefined || 0 || '' || 'Hola' || 23 || null); // Hola
+
+// restaurant.numGuests = 22;
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1);
+
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+
+console.log('------AND--------');
+console.log(0 && 'Sabrina');
+console.log(7 && 'Sabrina');
+console.log('Hola' && 23 && null && 'Sabrina');
+
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('bacon', 'pepperoni');
+}
+
+restaurant.orderPizza && restaurant.orderPizza('bacon', 'bbq steak');
+
+restaurant.numGuests = 0;
+const guests = restaurant.numGuests || 10;
+console.log(guests);
+const rightGuests = restaurant.numGuests ?? 10;
+console.log(rightGuests);
+
+const rest1 = {
+  name: 'Capri',
+  numGuests: 20,
+};
+
+const rest2 = {
+  name: 'La Piazza',
+  owner: 'Ruggero Pasquerelli',
+};
+
+// rest2.numGuests = rest2.numGuests || 10;
+// rest1.numGuests = rest1.numGuests || 10;
+
+rest2.numGuests ||= 10;
+rest1.numGuests ||= 10;
+
+rest2.numGuests ??= 10;
+rest1.numGuests ??= 10;
+
+// rest2.owner = rest2.owner && '<ANON>';
+// rest1.owner = rest1.owner && '<ANON>';
+
+rest1.owner &&= '<ANON>';
+rest2.owner &&= '<ANON>';
+
+console.log(rest1);
+console.log(rest2);
