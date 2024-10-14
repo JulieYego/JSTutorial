@@ -207,5 +207,5 @@ const entries = Object.entries(openingHours);
 // console.log(entries);
 
 for (const [day, { open, close }] of entries) {
-  console.log(`On ${key} we open at ${open} and close at ${close}`);
+  console.log(`On ${day} we open at ${open} and close at ${close}`);
 }
