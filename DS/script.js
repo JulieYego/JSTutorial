@@ -172,4 +172,17 @@ for (const menuItem of menu2) console.log('For-of', menuItem);
 for (const [index, menuItem] of menu2.entries())
   console.log(`${index + 1}:${menuItem}`);
 
-console.log(restaurant.openingHours.mon);
+// console.log(restaurant.openingHours.mon.open);
+
+if (restaurant.openingHours.mon) {
+  console.log(restaurant.openingHours.mon.open);
+}
+
+// Optional chaining
+console.log(restaurant.openingHours?.mon?.open);
+
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+for (const day of weekdays) {
+  console.log('Day', day);
+  console.log(openingHours[day]?.open);
+}
