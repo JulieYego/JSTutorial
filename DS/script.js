@@ -186,3 +186,39 @@ for (const day of weekdays) {
   console.log('Day', day);
   console.log(openingHours[day]?.open);
 }
+
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  console.log(day);
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day} we open at ${open}`);
+}
+
+console.log(
+  restaurant.orderPasta?.('bacon', 'ham', 'cheese') ?? 'Method does not exist'
+);
+
+const users = [{ name: 'Lucia', email: 'lucia67@email.com' }];
+console.log(users[0]?.name) ?? 'User array empty';
+
+// Looping over objects
+// Property names
+const properties = Object.keys(openingHours);
+console.log(properties);
+
+let openStr = `We are open on ${properties.length} days: `;
+for (const day of Object.keys(openingHours)) openStr += `${day}, `;
+console.log(openStr);
+
+// Property values
+const values = Object.values(openingHours);
+console.log(values);
+
+// Entire object
+const entries = Object.entries(openingHours);
+// console.log(entries);
+
+for (const [day, { open, close }] of entries) {
+  console.log(`On ${day} we open at ${open} and close at ${close}`);
+}
