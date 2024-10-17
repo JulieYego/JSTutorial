@@ -179,37 +179,37 @@ if (restaurant.openingHours.mon) {
 }
 
 // Optional chaining
-console.log(restaurant.openingHours?.mon?.open);
+// console.log(restaurant.openingHours?.mon?.open);
 
-const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-for (const day of weekdays) {
-  console.log('Day', day);
-  console.log(openingHours[day]?.open);
-}
+// const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+// for (const day of weekdays) {
+//   console.log('Day', day);
+//   console.log(openingHours[day]?.open);
+// }
 
-const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+// const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
-for (const day of days) {
-  console.log(day);
-  const open = restaurant.openingHours[day]?.open ?? 'closed';
-  console.log(`On ${day} we open at ${open}`);
-}
+// for (const day of days) {
+//   console.log(day);
+//   const open = restaurant.openingHours[day]?.open ?? 'closed';
+//   console.log(`On ${day} we open at ${open}`);
+// }
 
-console.log(
-  restaurant.orderPasta?.('bacon', 'ham', 'cheese') ?? 'Method does not exist'
-);
+// console.log(
+//   restaurant.orderPasta?.('bacon', 'ham', 'cheese') ?? 'Method does not exist'
+// );
 
-const users = [{ name: 'Lucia', email: 'lucia67@email.com' }];
-console.log(users[0]?.name) ?? 'User array empty';
+// const users = [{ name: 'Lucia', email: 'lucia67@email.com' }];
+// console.log(users[0]?.name) ?? 'User array empty';
 
 // Looping over objects
 // Property names
-const properties = Object.keys(openingHours);
-console.log(properties);
+// const properties = Object.keys(openingHours);
+// console.log(properties);
 
-let openStr = `We are open on ${properties.length} days: `;
-for (const day of Object.keys(openingHours)) openStr += `${day}, `;
-console.log(openStr);
+// let openStr = `We are open on ${properties.length} days: `;
+// for (const day of Object.keys(openingHours)) openStr += `${day}, `;
+// console.log(openStr);
 
 // Property values
 
@@ -224,32 +224,88 @@ for (const [day, { open, close }] of entries) {
   console.log(`On ${day} we open at ${open} and close at ${close}`);
 }
 
-const orderSet = new Set(['Pasta', 'Pizza', 'Risotto', 'Pizza', 'Pasta']);
-console.log('OrderSet\n', orderSet);
+// Sets
+// const orderSet = new Set(['Pasta', 'Pizza', 'Risotto', 'Pizza', 'Pasta']);
+// console.log('OrderSet\n', orderSet);
 
-const strSet = new Set('Jules');
-console.log(strSet);
-console.log(strSet.size);
+// const strSet = new Set('Jules');
+// console.log(strSet);
+// console.log(strSet.size);
 
-console.log(orderSet.has('Pizza'));
-console.log(orderSet.has('Bread'));
+// console.log(orderSet.has('Pizza'));
+// console.log(orderSet.has('Bread'));
 
-orderSet.add('Garlic Bread');
-orderSet.add('Garlic Bread');
-console.log(orderSet);
+// orderSet.add('Garlic Bread');
+// orderSet.add('Garlic Bread');
+// console.log(orderSet);
 
-orderSet.delete('Risotto');
-console.log(orderSet);
+// orderSet.delete('Risotto');
+// console.log(orderSet);
 
-for (const order of orderSet) console.log(order);
+// for (const order of orderSet) console.log(order);
 
-const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
-const uniqueStaff = new Set(staff);
-const uniqueStaffArray = [...new Set(staff)];
-console.log(uniqueStaff);
-console.log(uniqueStaffArray);
-console.log(
-  new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
-);
+// const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+// const uniqueStaff = new Set(staff);
+// const uniqueStaffArray = [...new Set(staff)];
+// console.log(uniqueStaff);
+// console.log(uniqueStaffArray);
+// console.log(
+//   new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
+// );
 
-console.log(new Set('JulieJemutaiYego').size);
+// console.log(new Set('JulieJemutaiYego').size);
+
+// // Maps
+// const rest = new Map();
+// rest.set('name', 'Classico Italiano');
+// rest.set(1, 'Firenze, Italy');
+// console.log(rest.set(2, 'Lisbon, Portugal'));
+
+// rest
+//   .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+//   .set('open', 11)
+//   .set('close', 23)
+//   .set(true, 'We are open :)')
+//   .set(false, 'We are closed :(');
+
+// console.log(rest.get('name'));
+// console.log(rest.get(true));
+// console.log(rest.get(1));
+
+// const time = 21;
+// console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+// console.log(rest.has('categories'));
+// rest.delete(2);
+// console.log(rest);
+// console.log(rest.size);
+// // rest.clear();
+// console.log(rest);
+
+// const arr = [1, 2];
+// rest.set(arr, 'Test');
+// rest.set(document.querySelector('h1'), 'Heading');
+// console.log(rest);
+// console.log(rest.get(arr));
+
+const question = new Map([
+  ['question', 'What is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'Correct!'],
+  [false, 'Try again!'],
+]);
+
+for (const [key, value] of question) {
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+// const answer = Number(prompt('Your answer'));
+// console.log(answer);
+// console.log(answer === 3 ? question.get(true) : question.get(false));
+// question.get(question.get('correct') === answer);
+
+console.log([...question]);
+console.log([...question.keys()]);
