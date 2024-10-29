@@ -259,3 +259,64 @@ const runOnce = function () {
 
 (() => console.log('This will also never run again'))();
 // console.log(isPrivate);
+
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+
+// console.log(isPrivate);
+
+const secureBooking = function () {
+  let passengerCount = 0;
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
+booker();
+booker();
+booker();
+
+console.dir(booker);
+
+// Example 1
+let f;
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+console.dir(f); // closure is a
+
+// Reassigning f function
+h();
+f();
+console.dir(f); // closure is b
+
+// Example 2
+const boardPassangers = function (n, wait) {
+  const perGroup = n / 3;
+
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passangers`);
+    console.log(`There are 3 groups, each with ${perGroup} passangers`);
+  }, wait * 1000);
+  console.log(`Will start boarding in ${wait}`);
+};
+
+const perGroup = 1000;
+boardPassangers(180, 3);
