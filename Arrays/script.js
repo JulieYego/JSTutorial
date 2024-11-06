@@ -81,6 +81,26 @@ const displayMovements = function (movements) {
 displayMovements(account1.movements);
 // console.log(containerMovements.innerHTML);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+calcDisplayBalance(account1.movements);
+
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map((name) => name[0])
+      .join('');
+  });
+};
+const user = 'Steven Thomas Williams';
+
+console.log(createUsernames(accounts));
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -123,7 +143,7 @@ displayMovements(account1.movements);
 // console.log(arr3.at(-1));
 
 // // LOOPING ARRAYS: forEach
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // // for (const movement of movements) {
 // for (const [index, movement] of movements.entries()) {
 //   if (movement > 0) {
@@ -174,3 +194,66 @@ displayMovements(account1.movements);
 // myArray.forEach(function (num) {
 //   console.log(num);
 // });
+
+// MAP METHOD
+// const eurToUsd = 1.1;
+
+// const movementsUSD = movements.map(function (movement) {
+//   return movement * eurToUsd;
+// });
+
+// const movementsUSD = movements.map((movement) => movement * eurToUsd);
+
+// console.log(movements);
+// console.log(movementsUSD);
+
+// const movementsUSDfor = [];
+// for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+
+// console.log(movementsUSDfor);
+
+// const movementsDescription = movements.map(
+//   (mov, i, arr) =>
+//     `Movement ${i + 1} : You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+//       mov
+//     )}`
+// );
+// console.log(movementsDescription);
+
+// FILTER METHOD
+// const deposits = movements.filter(function (mov) {
+//   return mov > 0;
+// });
+// console.log(movements);
+// console.log(deposits);
+
+// const depositsFor = [];
+// for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+// console.log(depositsFor);
+
+// const withdrawals = movements.filter((mov) => mov < 0);
+// console.log(withdrawals);
+
+// REDUCE METHOD
+// const balance = movements.reduce(function (acc, mov, i, arr) {
+//   console.log(`Iteration number ${i}:${acc}`);
+//   return acc + mov;
+// }, 0);
+
+const balance = movements.reduce((acc, mov) => acc + mov, 0);
+console.log(balance);
+
+let balanceFor = 0;
+for (const mov of movements) balanceFor += mov;
+console.log(balanceFor);
+
+// maximum value of array
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) {
+    return acc;
+  } else {
+    return mov;
+  }
+}, movements[0]);
+
+console.log(max);
