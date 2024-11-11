@@ -71,7 +71,7 @@ const displayMovements = function (movements) {
       <div class="movements__type movements__type--${type}">${
       index + 1
     } ${type}</div>
-      <div class="movements__value">${movement}</div>
+      <div class="movements__value">${movement}€</div>
     </div>`;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -83,9 +83,32 @@ displayMovements(account1.movements);
 
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR`;
+  labelBalance.textContent = `${balance} €`;
 };
 calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements
+    .filter((mov) => mov > 0)
+    .map((deposit) => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+calcDisplaySummary(account1.movements);
 
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
@@ -196,7 +219,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // });
 
 // MAP METHOD
-// const eurToUsd = 1.1;
+const eurToUsd = 1.1;
 
 // const movementsUSD = movements.map(function (movement) {
 //   return movement * eurToUsd;
@@ -240,23 +263,35 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   return acc + mov;
 // }, 0);
 
-const balance = movements.reduce((acc, mov) => acc + mov, 0);
-console.log(balance);
+// const balance = movements.reduce((acc, mov) => acc + mov, 0);
+// console.log(balance);
 
-let balanceFor = 0;
-for (const mov of movements) balanceFor += mov;
-console.log(balanceFor);
+// let balanceFor = 0;
+// for (const mov of movements) balanceFor += mov;
+// console.log(balanceFor);
 
 // maximum value of array
-const max = movements.reduce((acc, mov) => {
-  if (acc > mov) {
-    return acc;
-  } else {
-    return mov;
-  }
-}, movements[0]);
+// const max = movements.reduce((acc, mov) => {
+//   if (acc > mov) {
+//     return acc;
+//   } else {
+//     return mov;
+//   }
+// }, movements[0]);
 
 console.log(max);
 
 // CHAINING METHODS
 movements.filter((mov) => mov > 0);
+// console.log(max);
+
+const totalDepositsUSD = movements
+  .filter((mov) => mov > 0)
+  .map((mov, i, arr) => {
+    // console.log(arr);
+    return mov * eurToUsd;
+  })
+  // .map((mov) => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD);
