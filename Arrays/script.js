@@ -311,6 +311,10 @@ btnTransfer.addEventListener('click', function (e) {
 //   }
 // }, movements[0]);
 
+console.log(max);
+
+// CHAINING METHODS
+movements.filter((mov) => mov > 0);
 // console.log(max);
 
 // const totalDepositsUSD = movements
