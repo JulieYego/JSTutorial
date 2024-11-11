@@ -257,3 +257,6 @@ const max = movements.reduce((acc, mov) => {
 }, movements[0]);
 
 console.log(max);
+
+// CHAINING METHODS
+movements.filter((mov) => mov > 0);
