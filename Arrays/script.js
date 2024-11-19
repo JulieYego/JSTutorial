@@ -61,10 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (movement, index) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (movement, index) {
     const type = movement > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <div class="movements__row">
@@ -156,6 +158,13 @@ btnTransfer.addEventListener('click', function (e) {
   const receiverAccount = inputTransferTo.value;
 });
 
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -198,7 +207,7 @@ btnTransfer.addEventListener('click', function (e) {
 // console.log(arr3.at(-1));
 
 // // LOOPING ARRAYS: forEach
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // // for (const movement of movements) {
 // for (const [index, movement] of movements.entries()) {
 //   if (movement > 0) {
@@ -311,10 +320,10 @@ btnTransfer.addEventListener('click', function (e) {
 //   }
 // }, movements[0]);
 
-console.log(max);
+// console.log(max);
 
 // CHAINING METHODS
-movements.filter((mov) => mov > 0);
+// movements.filter((mov) => mov > 0);
 // console.log(max);
 
 // const totalDepositsUSD = movements
@@ -346,3 +355,102 @@ movements.filter((mov) => mov > 0);
 //   }
 // }
 // console.log('JESS', jessica);
+
+// SORT
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// console.log(owners.sort());
+// console.log(owners);
+
+// // Numbers
+// console.log(movements);
+// console.log(movements.sort());
+
+// return < 0, A, B (keep order)
+// return > 0, B, A (switch order)
+// ascending
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+
+// descending
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a < b) return 1;
+// });
+// movements.sort((a, b) => b - a);
+// console.log(movements);
+
+// Creating and Filling Arrays
+// How to programatically create and fill arrays
+// Empty arrays + fill method
+const arr = [1, 2, 3, 4, 5];
+console.log(new Array(1, 2, 3, 4, 5));
+// in these cases we already have the data so we can create the array manually/directly
+// but we can create arrays programatically without having to define all items manually
+
+const x = new Array(7);
+console.log(x); // empty array with 7 empty slots
+// Array() function creates a new empty argument with that length whenever we only pass in one argument
+// map method doesn't work on empty arrays
+// an array created like this is called a sparse array
+// it doesn't have any elements but only empty slots
+// methods that iterate over arrays like map, forEach, reduce, etc. ignore empty slots
+// methods that modify or access elements in an array will work with empty slots like fill, push, pop, shift, unshift, splice, etc.
+// fill method fills all the elements of an array with a static value
+x.fill(1);
+// x.fill(1, 3, 5);
+console.log(x);
+// Pass in a value and it will then fill up the entire array with this specific value.
+// Mutate the underlying array
+// we can also specify where we want it to start to fill.
+// can also be used with other arrays
+
+arr.fill(23, 2, 6);
+console.log(arr);
+
+// So what if he wanted to create this arr array programmatically?
+// So here we are not using the from here as a method on an array.
+// Instead we are using it on the Array() constructor.
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+//The callback function is exactly like the one in a map() method.
+// Imagine that you're using this as a callback function in calling the map() method on an empty array.
+// We get access to the current element and the index so adding one to the index will then give us values from one to seven.
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+// Array.from() function was initially introduced into JavaScript in order to create arrays from array like structures (iterables) - convert them into arrays.
+// But it can also be used to create arrays from scratch like we did here.
+
+// We used a Array.from() to create an array from the result of the querySelectorAll() which is a NodeList, which is not really an array,but an array like structure
+// And then as a second step,we even included a mapping function,which then forms that initial array to an array exactly as we want it.
+// Basically converting the raw element to its text content and replacing the Euro sign with nothing.
+// In the end, we end up exactly with the array of numbers that we intended.
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    (element) => Number(element.textContent.replace('€', '')) // callback function
+  );
+  // you can also use destructuring to convert it to an array though you'd have to do the mapping separately
+  // const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+  console.log(movementsUI);
+});
+
+// 1. How much has been deposited in total in the bank
+const bankDepositSum = accounts
+  .flatMap((acc) => acc.movements)
+  .filter((mov) => mov > 0)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(bankDepositSum);
+
+// 2. How many deposits there have been in the bank with at least $1,000
+// const numDeposits1000 = accounts
+//   .flatMap((acc) => acc.movements)
+//   .filter((mov) => mov > 1000).length;
+const numDeposits1000 = accounts.flatMap((acc) => acc.movements).reduce();
+console.log(numDeposits1000);
