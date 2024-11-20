@@ -526,35 +526,37 @@ console.log(new Array(1, 2, 3, 4, 5));
 
 const x = new Array(7);
 console.log(x); // empty array with 7 empty slots
-// Array() function creates a new empty argument with that length whenever we only pass in one argument
+// Array() function creates a new empty array with that length whenever we only pass in one argument
 // map method doesn't work on empty arrays
 // an array created like this is called a sparse array
 // it doesn't have any elements but only empty slots
 // methods that iterate over arrays like map, forEach, reduce, etc. ignore empty slots
 // methods that modify or access elements in an array will work with empty slots like fill, push, pop, shift, unshift, splice, etc.
 // fill method fills all the elements of an array with a static value
-x.fill(1);
-// x.fill(1, 3, 5);
+// x.fill(1);
+// x.fill(1, 3);
+x.fill(1, 3, 6);
+
 console.log(x);
 // Pass in a value and it will then fill up the entire array with this specific value.
 // Mutate the underlying array
 // we can also specify where we want it to start to fill.
 // can also be used with other arrays
 
-arr.fill(23, 2, 6);
-console.log(arr);
+// arr.fill(23, 2, 6);
+// console.log(arr);
 
 // So what if he wanted to create this arr array programmatically?
 // So here we are not using the from here as a method on an array.
 // Instead we are using it on the Array() constructor.
-const y = Array.from({ length: 7 }, () => 1);
-console.log(y);
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
 
 //The callback function is exactly like the one in a map() method.
 // Imagine that you're using this as a callback function in calling the map() method on an empty array.
 // We get access to the current element and the index so adding one to the index will then give us values from one to seven.
-const z = Array.from({ length: 7 }, (_, i) => i + 1);
-console.log(z);
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
 
 // Array.from() function was initially introduced into JavaScript in order to create arrays from array like structures (iterables) - convert them into arrays.
 // But it can also be used to create arrays from scratch like we did here.
@@ -581,8 +583,68 @@ const bankDepositSum = accounts
 console.log(bankDepositSum);
 
 // 2. How many deposits there have been in the bank with at least $1,000
-// const numDeposits1000 = accounts
-//   .flatMap((acc) => acc.movements)
-//   .filter((mov) => mov > 1000).length;
-const numDeposits1000 = accounts.flatMap((acc) => acc.movements).reduce();
+const numDeposits1000 = accounts
+  .flatMap((acc) => acc.movements)
+  .filter((mov) => mov >= 1000).length;
+
+const numDeposits1000_ = accounts
+  .flatMap((acc) => acc.movements)
+  // .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
 console.log(numDeposits1000);
+console.log(numDeposits1000_);
+
+// let a = 20;
+// console.log(a++); // 20
+// console.log(a); // 21
+
+// let b = 20;
+// console.log(++b); // 21
+// console.log(b); // 21
+
+// 3. Create an object which contains the sum of the deposits and of the withdrawals
+const { deposits, withdrawals } = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+
+console.log(deposits, withdrawals);
+
+// 4. Convert any string to title case
+const convertTitleCase = function (title) {
+  const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map((word) => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+
+  return capitalize(titleCase);
+};
+// const convertTitleCase = function (title) {
+//   const exceptions = ['a', 'an', 'the', 'but', 'or', 'on', 'in', 'with'];
+//   const titleCase = title
+//     .toLowerCase()
+//     .split(' ')
+//     .map((word) => {
+//       if (exceptions.includes(word)) {
+//         return word;
+//       } else {
+//         return word.replace(word[0], word[0].toUpperCase());
+//       }
+//     })
+//     .join(' ');
+
+//   return titleCase;
+// };
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
