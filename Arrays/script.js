@@ -5,11 +5,54 @@
 // BANKIST APP
 
 // Data
+// const account1 = {
+//   owner: 'Jonas Schmedtmann',
+//   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+//   interestRate: 1.2, // %
+//   pin: 1111,
+// };
+
+// const account2 = {
+//   owner: 'Jessica Davis',
+//   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+//   interestRate: 1.5,
+//   pin: 2222,
+// };
+
+// const account3 = {
+//   owner: 'Steven Thomas Williams',
+//   movements: [200, -200, 340, -300, -20, 50, 400, -460],
+//   interestRate: 0.7,
+//   pin: 3333,
+// };
+
+// const account4 = {
+//   owner: 'Sarah Smith',
+//   movements: [430, 1000, 700, 50, 90],
+//   interestRate: 1,
+//   pin: 4444,
+// };
+
+// const accounts = [account1, account2, account3, account4];
+
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+
+  movementsDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-05-27T17:01:17.194Z',
+    '2020-07-11T23:36:17.929Z',
+    '2020-07-12T10:51:36.790Z',
+  ],
+  currency: 'EUR',
+  locale: 'pt-PT', // de-DE
 };
 
 const account2 = {
@@ -17,23 +60,22 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+
+  movementsDates: [
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+    '2020-06-25T18:49:59.371Z',
+    '2020-07-26T12:01:20.894Z',
+  ],
+  currency: 'USD',
+  locale: 'en-US',
 };
 
-const account3 = {
-  owner: 'Steven Thomas Williams',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  interestRate: 0.7,
-  pin: 3333,
-};
-
-const account4 = {
-  owner: 'Sarah Smith',
-  movements: [430, 1000, 700, 50, 90],
-  interestRate: 1,
-  pin: 4444,
-};
-
-const accounts = [account1, account2, account3, account4];
+const accounts = [account1, account2];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -143,7 +185,7 @@ btnLogin.addEventListener('click', function (event) {
   );
   // console.log(currentAccount);
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and a welcome message
     labelWelcome.textContent = `Welcome back,${
       currentAccount.owner.split(' ')[0]
@@ -182,7 +224,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = +inputLoanAmount.value;
 
   if (
     amount > 0 &&
@@ -419,31 +461,31 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // INCLUDES
 // checks for equality
-console.log(movements);
-console.log(movements.includes(-130));
+// console.log(movements);
+// console.log(movements.includes(-130));
 
 // SOME
 // checks for a condition
-const anyDeposits = movements.some((mov) => mov > 0);
-console.log(anyDeposits);
+// const anyDeposits = movements.some((mov) => mov > 0);
+// console.log(anyDeposits);
 
 // EVERY
-console.log(movements.every((mov) => mov > 0));
-console.log(account4.movements.every((mov) => mov > 0));
+// console.log(movements.every((mov) => mov > 0));
+// console.log(account4.movements.every((mov) => mov > 0));
 
 // separate callback
-const deposit = (mov) => mov > 0;
-console.log(movements);
-console.log(movements.some(deposit));
-console.log(movements.every(deposit));
-console.log(movements.filter(deposit));
+// const deposit = (mov) => mov > 0;
+// console.log(movements);
+// console.log(movements.some(deposit));
+// console.log(movements.every(deposit));
+// console.log(movements.filter(deposit));
 
 // FLAT
 // const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
 // console.log(arr.flat());
 
-const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
-console.log(arrDeep.flat());
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat());
 
 // const accountMovements = accounts.map((acc) => acc.movements);
 // console.log(accountMovements);
@@ -452,35 +494,35 @@ console.log(arrDeep.flat());
 // const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
 // console.log(overallBalance);
 
-const overallBalance = accounts
-  .map((acc) => acc.movements)
-  .flat()
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overallBalance);
+// const overallBalance = accounts
+//   .map((acc) => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overallBalance);
 
-// FLATMAP
-const overallBalance2 = accounts
-  .flatMap((acc) => acc.movements)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overallBalance2);
+// // FLATMAP
+// const overallBalance2 = accounts
+//   .flatMap((acc) => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overallBalance2);
 
 // SORT
 // strings
-const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
-console.log(owners.sort());
-console.log(owners);
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// console.log(owners.sort());
+// console.log(owners);
 
 // numbers
-console.log(movements);
+// console.log(movements);
 // console.log(movements.sort());
 
 // return < 0, A, B (keep order)
 // return > 0  B, A (switch order)
-movements.sort((a, b) => {
-  if (a > b) return 1;
-  if (a < b) return -1;
-});
-console.log(movements);
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+// console.log(movements);
 
 // Suppose you want to take an array of sentences,
 // split each sentence into words, and then flatten the resulting array.
@@ -519,13 +561,13 @@ console.log(movements);
 // Creating and Filling Arrays
 // How to programatically create and fill arrays
 // Empty arrays + fill method
-const arr = [1, 2, 3, 4, 5];
-console.log(new Array(1, 2, 3, 4, 5));
+// const arr = [1, 2, 3, 4, 5];
+// console.log(new Array(1, 2, 3, 4, 5));
 // in these cases we already have the data so we can create the array manually/directly
 // but we can create arrays programatically without having to define all items manually
 
-const x = new Array(7);
-console.log(x); // empty array with 7 empty slots
+// const x = new Array(7);
+// console.log(x); // empty array with 7 empty slots
 // Array() function creates a new empty array with that length whenever we only pass in one argument
 // map method doesn't work on empty arrays
 // an array created like this is called a sparse array
@@ -535,9 +577,9 @@ console.log(x); // empty array with 7 empty slots
 // fill method fills all the elements of an array with a static value
 // x.fill(1);
 // x.fill(1, 3);
-x.fill(1, 3, 6);
+// x.fill(1, 3, 6);
 
-console.log(x);
+// console.log(x);
 // Pass in a value and it will then fill up the entire array with this specific value.
 // Mutate the underlying array
 // we can also specify where we want it to start to fill.
@@ -572,28 +614,28 @@ labelBalance.addEventListener('click', function () {
   );
   // you can also use destructuring to convert it to an array though you'd have to do the mapping separately
   // const movementsUI2 = [...document.querySelectorAll('.movements__value')];
-  console.log(movementsUI);
+  // console.log(movementsUI);
 });
 
 // 1. How much has been deposited in total in the bank
-const bankDepositSum = accounts
-  .flatMap((acc) => acc.movements)
-  .filter((mov) => mov > 0)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(bankDepositSum);
+// const bankDepositSum = accounts
+//   .flatMap((acc) => acc.movements)
+//   .filter((mov) => mov > 0)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(bankDepositSum);
 
-// 2. How many deposits there have been in the bank with at least $1,000
-const numDeposits1000 = accounts
-  .flatMap((acc) => acc.movements)
-  .filter((mov) => mov >= 1000).length;
+// // 2. How many deposits there have been in the bank with at least $1,000
+// const numDeposits1000 = accounts
+//   .flatMap((acc) => acc.movements)
+//   .filter((mov) => mov >= 1000).length;
 
-const numDeposits1000_ = accounts
-  .flatMap((acc) => acc.movements)
-  // .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
-  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+// const numDeposits1000_ = accounts
+//   .flatMap((acc) => acc.movements)
+//   // .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+//   .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
 
-console.log(numDeposits1000);
-console.log(numDeposits1000_);
+// console.log(numDeposits1000);
+// console.log(numDeposits1000_);
 
 // let a = 20;
 // console.log(a++); // 20
@@ -604,31 +646,31 @@ console.log(numDeposits1000_);
 // console.log(b); // 21
 
 // 3. Create an object which contains the sum of the deposits and of the withdrawals
-const { deposits, withdrawals } = accounts
-  .flatMap((acc) => acc.movements)
-  .reduce(
-    (sums, cur) => {
-      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
-      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
-      return sums;
-    },
-    { deposits: 0, withdrawals: 0 }
-  );
+// const { deposits, withdrawals } = accounts
+//   .flatMap((acc) => acc.movements)
+//   .reduce(
+//     (sums, cur) => {
+//       // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+//       sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+//       return sums;
+//     },
+//     { deposits: 0, withdrawals: 0 }
+//   );
 
-console.log(deposits, withdrawals);
+// console.log(deposits, withdrawals);
 
 // 4. Convert any string to title case
-const convertTitleCase = function (title) {
-  const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
-  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
-  const titleCase = title
-    .toLowerCase()
-    .split(' ')
-    .map((word) => (exceptions.includes(word) ? word : capitalize(word)))
-    .join(' ');
+// const convertTitleCase = function (title) {
+//   const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+//   const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+//   const titleCase = title
+//     .toLowerCase()
+//     .split(' ')
+//     .map((word) => (exceptions.includes(word) ? word : capitalize(word)))
+//     .join(' ');
 
-  return capitalize(titleCase);
-};
+//   return capitalize(titleCase);
+// };
 // const convertTitleCase = function (title) {
 //   const exceptions = ['a', 'an', 'the', 'but', 'or', 'on', 'in', 'with'];
 //   const titleCase = title
@@ -645,6 +687,52 @@ const convertTitleCase = function (title) {
 
 //   return titleCase;
 // };
-console.log(convertTitleCase('this is a nice title'));
-console.log(convertTitleCase('this is a LONG title but not too long'));
-console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+// console.log(convertTitleCase('this is a nice title'));
+// console.log(convertTitleCase('this is a LONG title but not too long'));
+// console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+
+console.log(23 === 23.0);
+
+// Conversion
+console.log(Number('19'));
+console.log(+'19');
+
+// Parsing
+// convert strings to numbers
+// console.log(Number.parseInt('30px')); // 30
+// console.log(Number.parseInt('30px')); // string has to start with a number
+// // it tries to get rid of unneceessary symbols which are not numbers
+// // accepts second argument ~ radix -> the base of the numeral system we are using
+// console.log(Number.parseInt('30px', 10)); // 30
+
+// ignores trailing non-numeric characters
+
+// console.log(Number.parseFloat('2.5rem'));
+// global functions thus the below also works
+// console.log(parseFloat('2.5rem')); // when you need to read a value from a string
+
+console.log(Number.isNaN(20)); // false // used to check if any value is a number.
+// dividing by 0 gives us infinity
+console.log(Number.isNaN('20')); // false
+console.log(Number.isNaN(+'20px')); // true
+console.log(Number.isNaN(23 / 0)); // false because isNaN() it does not consider this use case
+
+// The isNaN() function in JavaScript is used to determine whether a value is NaN (Not-a-Number).
+// It returns true if the value is NaN or cannot be converted into a number; otherwise, it returns false.
+//  The value to be tested is converted to a number before checking
+// If the value cannot be coerced into a valid number, isNaN() returns true.
+// If the value is a valid number, isNaN() returns false.
+
+// isFinite()
+// used to determine whether a given value is a finite number
+// It returns true if the value is a finite number(neither Infinity, Infinity, or NaN), and false otherwise
+// best way to check if a value is a number
+console.log('isFinite()');
+console.log(Number.isFinite(20));
+console.log(Number.isFinite('20'));
+console.log(Number.isFinite(+'20px'));
+console.log(Number.isFinite(23 / 0));
+
+console.log(Number.isInteger(23)); // true
+console.log(Number.isInteger(23.0)); // true
+console.log(Number.isInteger(23 / 0)); // false
