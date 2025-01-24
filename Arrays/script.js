@@ -691,11 +691,11 @@ labelBalance.addEventListener('click', function () {
 // console.log(convertTitleCase('this is a LONG title but not too long'));
 // console.log(convertTitleCase('and here is another title with an EXAMPLE'));
 
-console.log(23 === 23.0);
+// console.log(23 === 23.0);
 
-// Conversion
-console.log(Number('19'));
-console.log(+'19');
+// // Conversion
+// console.log(Number('19'));
+// console.log(+'19');
 
 // Parsing
 // convert strings to numbers
@@ -711,11 +711,11 @@ console.log(+'19');
 // global functions thus the below also works
 // console.log(parseFloat('2.5rem')); // when you need to read a value from a string
 
-console.log(Number.isNaN(20)); // false // used to check if any value is a number.
-// dividing by 0 gives us infinity
-console.log(Number.isNaN('20')); // false
-console.log(Number.isNaN(+'20px')); // true
-console.log(Number.isNaN(23 / 0)); // false because isNaN() it does not consider this use case
+// console.log(Number.isNaN(20)); // false // used to check if any value is a number.
+// // dividing by 0 gives us infinity
+// console.log(Number.isNaN('20')); // false
+// console.log(Number.isNaN(+'20px')); // true
+// console.log(Number.isNaN(23 / 0)); // false because isNaN() it does not consider this use case
 
 // The isNaN() function in JavaScript is used to determine whether a value is NaN (Not-a-Number).
 // It returns true if the value is NaN or cannot be converted into a number; otherwise, it returns false.
@@ -727,12 +727,19 @@ console.log(Number.isNaN(23 / 0)); // false because isNaN() it does not consider
 // used to determine whether a given value is a finite number
 // It returns true if the value is a finite number(neither Infinity, Infinity, or NaN), and false otherwise
 // best way to check if a value is a number
-console.log('isFinite()');
-console.log(Number.isFinite(20));
-console.log(Number.isFinite('20'));
-console.log(Number.isFinite(+'20px'));
-console.log(Number.isFinite(23 / 0));
+// console.log('isFinite()');
+// console.log(Number.isFinite(20));
+// console.log(Number.isFinite('20'));
+// console.log(Number.isFinite(+'20px'));
+// console.log(Number.isFinite(23 / 0));
 
-console.log(Number.isInteger(23)); // true
-console.log(Number.isInteger(23.0)); // true
-console.log(Number.isInteger(23 / 0)); // false
+// console.log(Number.isInteger(23)); // true
+// console.log(Number.isInteger(23.0)); // true
+// console.log(Number.isInteger(23 / 0)); // false
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
