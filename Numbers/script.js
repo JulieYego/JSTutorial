@@ -119,3 +119,5 @@
 
 // console.log(Number('23000'))
 // console.log(Number('23_000')) // not allowed
+
+// Next lesson
