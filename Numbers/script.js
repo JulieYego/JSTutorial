@@ -120,4 +120,30 @@
 // console.log(Number('23000'))
 // console.log(Number('23_000')) // not allowed
 
-// Next lesson
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 + 1);
+
+console.log(123456876543523253543523414325354636364);
+console.log(123456876543523253543523414325354636364n);
+console.log(BigInt(123456876543523253543523414325354636364n));
+
+// Operators
+console.log(10000n + 10000n);
+console.log(345883829858539929488684392049586349n * 10000n);
+
+const hugeNum = 345883829858539929488684392049586349n;
+const num = 2;
+// console.log(hugeNum * num);
+
+// Exceptions
+console.log(20n > 15);
+console.log(20n === 20);
+console.log(typeof 20n);
+console.log(20n === '20');
+console.log(hugeNum + ' is huge');
+
+// Divisions
+console.log(12n / 3n);
+console.log(10n / 3n);
+console.log(10 / 3);
