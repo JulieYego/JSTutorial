@@ -120,30 +120,60 @@
 // console.log(Number('23000'))
 // console.log(Number('23_000')) // not allowed
 
-console.log(2 ** 53 - 1);
-console.log(Number.MAX_SAFE_INTEGER);
-console.log(2 ** 53 + 1);
+// console.log(2 ** 53 - 1);
+// console.log(Number.MAX_SAFE_INTEGER);
+// console.log(2 ** 53 + 1);
 
-console.log(123456876543523253543523414325354636364);
-console.log(123456876543523253543523414325354636364n);
-console.log(BigInt(123456876543523253543523414325354636364n));
+// console.log(123456876543523253543523414325354636364);
+// console.log(123456876543523253543523414325354636364n);
+// console.log(BigInt(123456876543523253543523414325354636364n));
 
-// Operators
-console.log(10000n + 10000n);
-console.log(345883829858539929488684392049586349n * 10000n);
+// // Operators
+// console.log(10000n + 10000n);
+// console.log(345883829858539929488684392049586349n * 10000n);
 
-const hugeNum = 345883829858539929488684392049586349n;
-const num = 2;
+// const hugeNum = 345883829858539929488684392049586349n;
+// const num = 2;
 // console.log(hugeNum * num);
 
 // Exceptions
-console.log(20n > 15);
-console.log(20n === 20);
-console.log(typeof 20n);
-console.log(20n === '20');
-console.log(hugeNum + ' is huge');
+// console.log(20n > 15);
+// console.log(20n === 20);
+// console.log(typeof 20n);
+// console.log(20n === '20');
+// console.log(hugeNum + ' is huge');
 
-// Divisions
-console.log(12n / 3n);
-console.log(10n / 3n);
-console.log(10 / 3);
+// // Divisions
+// console.log(12n / 3n);
+// console.log(10n / 3n);
+// console.log(10 / 3);
+
+// Create a Date
+// const now = new Date();
+// console.log('Now', now);
+// console.log(new Date('July 19,2001'));
+
+// console.log(new Date(2022, 10, 19, 15, 23, 5));
+// console.log(new Date(2022, 7, 19));
+
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+// Working with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime());
+
+console.log(new Date(2142246180000));
+console.log(Date.now());
+
+future.setFullYear(2040);
+console.log(future);
