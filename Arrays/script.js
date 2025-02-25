@@ -762,8 +762,12 @@ labelBalance.addEventListener('click', function () {
 // console.log(Number.isInteger(23.0)); // true
 // console.log(Number.isInteger(23 / 0)); // false
 
+// This didnt work btw lol...need to look into it
+
 labelBalance.addEventListener('click', function () {
   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
     if (i % 2 === 0) row.style.backgroundColor = 'orangered';
     if (i % 3 === 0) row.style.backgroundColor = 'blue';
   });
