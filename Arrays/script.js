@@ -105,18 +105,24 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
+  console.log('vfdbfdv', acc);
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
+
+  console.log('vfvgfrbfr', movs);
 
   movs.forEach(function (movement, index) {
     const type = movement > 0 ? 'deposit' : 'withdrawal';
-    const date = new Date(acc.movementsDates[i]);
-    const now = new Date();
+    const date = new Date(acc.movementsDate[index]);
     const day = `${date.getDate()}`.padStart(2, 0);
     const month = `${date.getMonth() + 1}`.padStart(2, 0);
     const year = date.getFullYear();
+    const hour = date.getHours();
+    const min = date.getMinutes();
 
-    const displayDate = `${day}/${month}/${year}`;
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     const html = `
     <div class="movements__row">
@@ -764,9 +770,9 @@ labelBalance.addEventListener('click', function () {
 
 // This didnt work btw lol...need to look into it
 
-labelBalance.addEventListener('click', function () {
-  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
-    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
-    if (i % 3 === 0) row.style.backgroundColor = 'blue';
-  });
-});
+// labelBalance.addEventListener('click', function () {
+//   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+//     if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+//     if (i % 3 === 0) row.style.backgroundColor = 'blue';
+//   });
+// });
