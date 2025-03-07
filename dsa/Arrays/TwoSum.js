@@ -24,19 +24,19 @@
 // Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 
 // Brute force
-// const twoSum = function (arr, target) {
-//   let ans = [];
-//   for (let i = 0; i < arr.length; i++) {
-//     for (let j = i + 1; j < arr.length; j++) {
-//       if (arr[i] + arr[j] === target) {
-//         return [i, j];
-//       }
-//     }
-//   }
-//   return [];
-// };
+const twoSum_bruteforce = function (arr, target) {
+  let ans = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+  return [];
+};
 
-// console.log(twoSum([3, 2, 4], 6));
+console.log(twoSum([3, 2, 4], 6));
 
 // Using hashmap
 // Find the number target - number
