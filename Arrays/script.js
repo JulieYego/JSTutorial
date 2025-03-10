@@ -770,9 +770,11 @@ labelBalance.addEventListener('click', function () {
 
 // This didnt work btw lol...need to look into it
 
-// labelBalance.addEventListener('click', function () {
-//   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
-//     if (i % 2 === 0) row.style.backgroundColor = 'orangered';
-//     if (i % 3 === 0) row.style.backgroundColor = 'blue';
-//   });
-// });
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
+
+///Is this going to pick
