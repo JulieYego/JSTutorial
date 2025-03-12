@@ -778,3 +778,6 @@ labelBalance.addEventListener('click', function () {
 });
 
 ///Is this going to pick
+labelBalance.addEventListener('click', function () {
+  console.log('Clicked on label balance');
+});
