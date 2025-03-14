@@ -786,3 +786,7 @@ labelBalance.addEventListener('click', function () {
 function git(params) {
   return 'Yay github';
 }
+
+function git2(params) {
+  return 'YAy aus gp';
+}
