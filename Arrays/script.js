@@ -790,3 +790,7 @@ function git(params) {
 function git2(params) {
   return 'YAy aus gp';
 }
+
+const git_2 = function (params) {
+  return 'Lando won';
+};
