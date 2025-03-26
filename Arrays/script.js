@@ -794,3 +794,7 @@ function git2(params) {
 const git_2 = function (params) {
   return 'Lando won';
 };
+
+const git_australia = function (params) {
+  return 'Oscar spun cause of the rain';
+};
