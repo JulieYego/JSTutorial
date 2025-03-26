@@ -105,24 +105,22 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
-  console.log('vfdbfdv', acc);
-
   const movs = sort
     ? acc.movements.slice().sort((a, b) => a - b)
     : acc.movements;
 
-  console.log('vfvgfrbfr', movs);
-
   movs.forEach(function (movement, index) {
     const type = movement > 0 ? 'deposit' : 'withdrawal';
-    const date = new Date(acc.movementsDate[index]);
+    const date = new Date(acc.movementsDates[index]);
     const day = `${date.getDate()}`.padStart(2, 0);
     const month = `${date.getMonth() + 1}`.padStart(2, 0);
     const year = date.getFullYear();
     const hour = date.getHours();
     const min = date.getMinutes();
 
-    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+    const displayDate = `${day}/${month}/${year}`;
+
+    // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     const html = `
     <div class="movements__row">
@@ -197,17 +195,6 @@ currentAccount = account1;
 updateUI(currentAccount);
 containerApp.style.opacity = 100;
 
-const now = new Date();
-const day = `${now.getDate()}`.padStart(2, 0);
-const month = `${now.getMonth() + 1}`.padStart(2, 0);
-const year = now.getFullYear();
-const hour = now.getHours();
-const min = now.getMinutes();
-
-labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
-
-// dd/mm/yyyy
-
 btnLogin.addEventListener('click', function (event) {
   event.preventDefault(); // prevent forms from submitting
 
@@ -222,11 +209,22 @@ btnLogin.addEventListener('click', function (event) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
-    // Update UI
-    updateUI(currentAccount);
+
+    // Current date and time
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = `${now.getHours()}`.padStart(2.0);
+    const min = `${now.getMinutes()}`.padStart(2.0);
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+
     // Clear input fields
     inputLoginPin.value = inputLoginUsername.value = '';
     inputLoginPin.blur();
+
+    // Update UI
+    updateUI(currentAccount);
   }
 });
 
@@ -244,9 +242,13 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.balance >= amount &&
     receiverAccount?.username !== currentAccount.username
   ) {
+    // Doing the transfer
     currentAccount.movements.push(-amount);
     receiverAccount.movements.push(amount);
 
+    // Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAccount.movementsDates.push(new Date().toISOString());
     // Update UI
     updateUI(currentAccount);
   }
@@ -263,6 +265,9 @@ btnLoan.addEventListener('click', function (e) {
   ) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    // Add loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -782,19 +787,3 @@ labelBalance.addEventListener('click', function () {
   console.log('Clicked on label balance');
   console.log('another console log');
 });
-
-function git(params) {
-  return 'Yay github';
-}
-
-function git2(params) {
-  return 'YAy aus gp';
-}
-
-const git_2 = function (params) {
-  return 'Lando won';
-};
-
-const git_australia = function (params) {
-  return 'Oscar spun cause of the rain';
-};
