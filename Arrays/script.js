@@ -105,13 +105,22 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
-  const movs = sort
-    ? acc.movements.slice().sort((a, b) => a - b)
-    : acc.movements;
 
-  movs.forEach(function (movement, index) {
+  const combinedMovsDates = acc.movements.map((mov, i) => ({
+    movement: mov,
+    movementDate: acc.movementsDates.at(i),
+  }));
+  console.log(combinedMovsDates);
+  // const movs = sort
+  //   ? acc.movements.slice().sort((a, b) => a - b)
+  //   : acc.movements;
+
+  if (sort) combinedMovsDates.sort((a, b) => a.movement - b.movement);
+
+  combinedMovsDates.forEach(function (obj, index) {
+    const { movement, movementDate } = obj;
     const type = movement > 0 ? 'deposit' : 'withdrawal';
-    const date = new Date(acc.movementsDates[index]);
+    const date = new Date(movementDate);
     const day = `${date.getDate()}`.padStart(2, 0);
     const month = `${date.getMonth() + 1}`.padStart(2, 0);
     const year = date.getFullYear();
