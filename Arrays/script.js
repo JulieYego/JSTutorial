@@ -46,10 +46,10 @@ const account1 = {
     '2019-12-23T07:42:02.383Z',
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
-    '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2025-03-08T14:11:59.604Z',
+    '2025-03-20T17:01:17.194Z',
+    '2025-03-25T18:49:59.371Z',
+    '2025-03-26T12:01:20.894Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -68,8 +68,8 @@ const account2 = {
     '2020-01-25T14:18:46.235Z',
     '2020-02-05T16:33:06.386Z',
     '2020-04-10T14:43:26.374Z',
-    '2020-06-25T18:49:59.371Z',
-    '2020-07-26T12:01:20.894Z',
+    '2025-03-25T18:49:59.371Z',
+    '2025-03-26T12:01:20.894Z',
   ],
   currency: 'USD',
   locale: 'en-US',
@@ -103,6 +103,24 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const formatMovement = function (date) {
+  const calsDaysPassed = (date1, date2) =>
+    Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
+
+  const daysPassed = calsDaysPassed(new Date(), date);
+  console.log('SZA', daysPassed);
+
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  // else {
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+  // }
+};
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -110,7 +128,6 @@ const displayMovements = function (acc, sort = false) {
     movement: mov,
     movementDate: acc.movementsDates.at(i),
   }));
-  console.log(combinedMovsDates);
   // const movs = sort
   //   ? acc.movements.slice().sort((a, b) => a - b)
   //   : acc.movements;
@@ -121,13 +138,7 @@ const displayMovements = function (acc, sort = false) {
     const { movement, movementDate } = obj;
     const type = movement > 0 ? 'deposit' : 'withdrawal';
     const date = new Date(movementDate);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const hour = date.getHours();
-    const min = date.getMinutes();
-
-    const displayDate = `${day}/${month}/${year}`;
+    const displayDate = formatMovement(date);
 
     // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
@@ -782,8 +793,6 @@ labelBalance.addEventListener('click', function () {
 // console.log(Number.isInteger(23.0)); // true
 // console.log(Number.isInteger(23 / 0)); // false
 
-// This didnt work btw lol...need to look into it
-
 labelBalance.addEventListener('click', function () {
   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
     if (i % 2 === 0) row.style.backgroundColor = 'orangered';
@@ -791,8 +800,15 @@ labelBalance.addEventListener('click', function () {
   });
 });
 
-///Is this going to pick
-labelBalance.addEventListener('click', function () {
-  console.log('Clicked on label balance');
-  console.log('another console log');
-});
+// operations with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(Number(future));
+console.log(+future);
+
+const calsDaysPassed = (date1, date2) =>
+  Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
+
+const days = calsDaysPassed(new Date(2037, 10, 29), new Date(2037, 10, 19));
+console.log(days);
+
+// internationalization
