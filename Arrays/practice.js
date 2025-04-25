@@ -177,20 +177,20 @@
 
 //  Transform to Key-Value Pairs
 // Convert an array of objects into a single object where a specific property becomes the key, and another property becomes the value
-const items = [
-  { id: 1, name: 'Laptop' },
-  { id: 2, name: 'Phone' },
-  { id: 3, name: 'Tablet' },
-];
+// const items = [
+//   { id: 1, name: 'Laptop' },
+//   { id: 2, name: 'Phone' },
+//   { id: 3, name: 'Tablet' },
+// ];
 
-const result = items.reduce((acc, item) => {
-  // Your code here'
-  acc[item.id] = item.name;
+// const result = items.reduce((acc, item) => {
+//   // Your code here'
+//   acc[item.id] = item.name;
 
-  return acc;
-}, {});
+//   return acc;
+// }, {});
 
-console.log(result);
+// console.log(result);
 // Expected Output: { 1: "Laptop", 2: "Phone", 3: "Tablet" }
 
 // Sum Values by Category
@@ -251,3 +251,98 @@ console.log(result);
 
 // console.log(result);
 // Expected Output: { name: "Alice", age: 25, city: "New York" }
+
+// Create an array of numbers from 1 to 5.
+// Access the first and last elements of an array
+
+// const arr = [1, 2, 3, 4, 5];
+// console.log(arr[0], arr[arr.length - 1]);
+
+// Array Methods Practice
+// Add an element to the end (push) and start (unshift) of an array.
+// Remove an element from the end (pop) and start (shift) of an array.
+// Concatenate two arrays (concat)
+
+const arr = [1, 2, 3];
+// for (let i = 0; i < arr.length; i++) {
+//   console.log('For loop', arr[i]);
+// }
+
+// for (const num of arr) {
+//   console.log('For...of', num);
+// }
+
+// arr.forEach((num) => {
+//   console.log('ForEach', num);
+// });
+
+// const doubled = arr.map((num) => num * 2);
+// console.log('Doubled', doubled);
+
+// const odd = arr.map((num) => num % 2 === 1);
+// console.log('Odd', odd);
+
+// const sum = arr.reduce((acc, num) => acc + num, 0);
+// console.log('Sum', sum);
+// let max = 0;
+// for (const num of arr) {
+//   if (num > max) {
+//     max = num;
+//   }
+// }
+// console.log('Max', max);
+// console.log(Math.max(...arr));
+// console.log(arr.includes(3));
+
+// const arr_set = new Set(arr);
+// console.log([...arr_set]);
+// console.log(arr.reverse());
+
+// for (let i = 0; i <= 15; i++) {
+//   if (i % 3 === 0) {
+//     console.log('Fizz');
+//   }
+
+//   if (i % 5 === 0) {
+//     console.log('Bizz');
+//   }
+
+//   if (i % 3 === 0 && i % 5 === 0) {
+//     console.log('FizzBizz');
+//   } else {
+//     console.log(i);
+//   }
+// }
+
+const secondLargest = (arr) => {
+  let max = 0;
+  let secondMax = 0;
+  for (const num of arr) {
+    if (num > max) {
+      secondMax = max;
+      max = num;
+    } else if (num > secondMax) {
+      secondMax = num;
+    }
+  }
+  return secondMax;
+};
+
+// console.log(secondLargest([90, 1, 23, 45, 67, 12, 33]));
+
+const hasDuplicate = (arr) => new Set(arr).size !== arr.length;
+
+// console.log(hasDuplicate([1, 2, 3, 4, 4, 5, 6, 7, 8, 9, 10]));
+
+function duplicate(myArray) {
+  for (let i = 0; i < myArray.length; i++) {
+    for (let j = i + 1; j < myArray.length; j++) {
+      if (myArray[i] === myArray[j]) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+console.log(duplicate([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9]));
