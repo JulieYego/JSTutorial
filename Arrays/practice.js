@@ -94,18 +94,18 @@
 //   }, {})
 // );
 
-// // Split an array into two groups based on a condition (e.g., odd and even numbers)
-// const nums78 = [1, 2, 3, 4, 5, 6];
-// console.log(
-//   nums78.reduce(
-//     (acc, num) => {
-//       num % 2 === 0 ? acc.even.push(num) : acc.odd.push(num);
-//       return acc;
-//     },
-//     { odd: [], even: [] }
-//   )
-// );
-// // Output: { odd: [1, 3, 5], even: [2, 4, 6] }
+// Split an array into two groups based on a condition (e.g., odd and even numbers)
+const nums78 = [1, 2, 3, 4, 5, 6];
+console.log(
+  nums78.reduce(
+    (acc, num) => {
+      num % 2 === 0 ? acc.even.push(num) : acc.odd.push(num);
+      return acc;
+    },
+    { odd: [], even: [] }
+  )
+);
+// Output: { odd: [1, 3, 5], even: [2, 4, 6] }
 
 // // Sort an array of objects by a numeric property in descending order
 // const players = [
