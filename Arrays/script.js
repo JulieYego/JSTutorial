@@ -103,22 +103,29 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const formatMovement = function (date) {
+const formatMovement = function (date, locale) {
   const calsDaysPassed = (date1, date2) =>
     Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
 
   const daysPassed = calsDaysPassed(new Date(), date);
-  console.log('SZA', daysPassed);
 
   if (daysPassed === 0) return 'Today';
   if (daysPassed === 1) return 'Yesterday';
   if (daysPassed <= 7) return `${daysPassed} days ago`;
   // else {
-  const day = `${date.getDate()}`.padStart(2, 0);
-  const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
+  // return `${day}/${month}/${year}`;
   // }
+  return new Intl.DateTimeFormat(locale).format(date);
+};
+
+const formatCurrency = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
 };
 
 const displayMovements = function (acc, sort = false) {
@@ -138,17 +145,23 @@ const displayMovements = function (acc, sort = false) {
     const { movement, movementDate } = obj;
     const type = movement > 0 ? 'deposit' : 'withdrawal';
     const date = new Date(movementDate);
-    const displayDate = formatMovement(date);
+    const displayDate = formatMovement(date, acc.locale);
 
     // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
+    // const formattedMov = new Intl.NumberFormat(acc.locale, {
+    //   style: 'currency',
+    //   currency: acc.currency,
+    // }).format(movement);
+
+    const formattedMov = formatCurrency(movement, acc.locale, acc.currency);
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${
       index + 1
     } ${type}</div>
       <div class="movements__date">${displayDate}</div>
-      <div class="movements__value">${movement.toFixed(2)}€</div>
+      <div class="movements__value">${formattedMov}</div>
     </div>`;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -160,7 +173,11 @@ const displayMovements = function (acc, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance.toFixed(2)} €`;
+  labelBalance.textContent = formatCurrency(
+    acc.balance,
+    acc.locale,
+    acc.currency
+  );
 };
 // calcDisplayBalance(account1.movements);
 
@@ -168,12 +185,20 @@ const calcDisplaySummary = function (account) {
   const incomes = account.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+  labelSumIn.textContent = formatCurrency(
+    incomes,
+    account.locale,
+    account.currency
+  );
 
   const out = account.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
+  labelSumOut.textContent = formatCurrency(
+    Math.abs(out),
+    account.locale,
+    account.currency
+  );
 
   const interest = account.movements
     .filter((mov) => mov > 0)
@@ -183,7 +208,11 @@ const calcDisplaySummary = function (account) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+  labelSumInterest.textContent = formatCurrency(
+    interest,
+    account.locale,
+    account.currency
+  );
 };
 // calcDisplaySummary(account1.movements);
 
@@ -215,6 +244,8 @@ currentAccount = account1;
 updateUI(currentAccount);
 containerApp.style.opacity = 100;
 
+// Experimenting with Intl API
+
 btnLogin.addEventListener('click', function (event) {
   event.preventDefault(); // prevent forms from submitting
 
@@ -232,12 +263,36 @@ btnLogin.addEventListener('click', function (event) {
 
     // Current date and time
     const now = new Date();
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hour = `${now.getHours()}`.padStart(2.0);
-    const min = `${now.getMinutes()}`.padStart(2.0);
-    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+    console.log('NOW', now);
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      // second: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      // weekday: 'long',
+      // era: 'long',
+      // timeZoneName: 'long',
+      // hour12: false,
+      // timeZone: 'Africa/Nairobi',
+      // timeStyle: 'short',
+      // dateStyle: 'short',
+    };
+
+    // const locale = navigator.language;
+    // console.log('LOCALE', locale);
+    // labelDate.textContent = new Intl.DateTimeFormat('en-US', options).format(now);
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
+    // const day = `${now.getDate()}`.padStart(2, 0);
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    // const year = now.getFullYear();
+    // const hour = `${now.getHours()}`.padStart(2.0);
+    // const min = `${now.getMinutes()}`.padStart(2.0);
+    // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     // Clear input fields
     inputLoginPin.value = inputLoginUsername.value = '';
@@ -811,4 +866,27 @@ const calsDaysPassed = (date1, date2) =>
 const days = calsDaysPassed(new Date(2037, 10, 29), new Date(2037, 10, 19));
 console.log(days);
 
-// internationalization
+// Internatializing numbers
+const num = 3884764.23;
+
+const options = {
+  style: 'currency',
+  unit: 'celsius',
+  currency: 'EUR',
+  useGrouping: false,
+};
+console.log('US  : ', new Intl.NumberFormat('en-US', options).format(num));
+console.log('GER : ', new Intl.NumberFormat('de-DE', options).format(num));
+console.log('SYR : ', new Intl.NumberFormat('ar-SY', options).format(num));
+console.log(
+  navigator.language,
+  new Intl.NumberFormat(navigator.language, options).format(num)
+);
+
+setTimeout(
+  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`),
+  3000,
+  'bacon',
+  'pepperoni'
+);
+console.log('Waiting...');
