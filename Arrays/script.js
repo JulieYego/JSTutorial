@@ -236,6 +236,19 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogoutTimer = function () {
+  // set time to 5 minutes
+  let time = 100;
+  // call the timer every second
+  setInterval(function () {
+    const min = time / 60;
+    const sec = time % 60;
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+    time--;
+  }, 1000);
+};
+
 // Event handler
 let currentAccount;
 
@@ -297,6 +310,7 @@ btnLogin.addEventListener('click', function (event) {
     // Clear input fields
     inputLoginPin.value = inputLoginUsername.value = '';
     inputLoginPin.blur();
+    startLogoutTimer();
 
     // Update UI
     updateUI(currentAccount);
@@ -339,13 +353,13 @@ btnLoan.addEventListener('click', function (e) {
     currentAccount.movements.some((mov) => mov >= amount * 0.1)
   ) {
     // Add movement
-    currentAccount.movements.push(amount);
-
-    // Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
-
-    // Update UI
-    updateUI(currentAccount);
+    setTimeout(function () {
+      currentAccount.movements.push(amount);
+      // Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
 
     inputLoanAmount.value = '';
   }
@@ -883,10 +897,30 @@ console.log(
   new Intl.NumberFormat(navigator.language, options).format(num)
 );
 
-setTimeout(
-  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`),
-  3000,
-  'bacon',
-  'pepperoni'
-);
-console.log('Waiting...');
+// const ingredients = ['chicken', 'bacon'];
+// const sandwichTimer = setTimeout(
+//   (ing1, ing2) => console.log(`Here is your sandwich with ${ing1} and ${ing2}`),
+//   3000,
+//   ...ingredients
+// );
+// console.log('Waiting...');
+
+// if (ingredients.includes('cheese')) clearTimeout(sandwichTimer);
+
+// setInterval
+// setInterval(function () {
+//   const now = new Date();
+//   const hour = new Date().getHours();
+//   const min = new Date().getMinutes();
+//   const sec = new Date().getSeconds();
+//   console.log(`${hour}:${min}:${sec}`);
+// }, 1000);
+
+// const intervalId = setInterval(
+//   (name) => console.log(`Hello ${name}`),
+//   1000,
+//   ' Hi Lane'
+// );
+
+// setTimeout(() => clearInterval(intervalId), 5000);
+// clearInterval(intervalId);
