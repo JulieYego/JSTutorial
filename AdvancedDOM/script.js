@@ -82,3 +82,11 @@ document
   .addEventListener('click', function () {
     message.remove();
   });
+
+// Styling elements
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+console.log(message.style.color); // Returns an empty string because it's not set inline
+console.log(message.style.backgroundColor); // Returns the inline style value
+
+console.log('Computed style', getComputedStyle(message).color);
