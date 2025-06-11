@@ -86,7 +86,38 @@ document
 // Styling elements
 message.style.backgroundColor = '#37383d';
 message.style.width = '120%';
-console.log(message.style.color); // Returns an empty string because it's not set inline
-console.log(message.style.backgroundColor); // Returns the inline style value
+// console.log(message.style.color); // Returns an empty string because it's not set inline
+// console.log(message.style.backgroundColor); // Returns the inline style value
 
-console.log('Computed style', getComputedStyle(message).color);
+// console.log('Computed style', getComputedStyle(message).color);
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log('section1 - coords', s1coords);
+
+  console.log(e.target.getBoundingClientRect());
+  console.log('Current scroll (X/Y)', window.scrollX, window.scrollY);
+  console.log(
+    'Width and Height viewport',
+    document.documentElement.clientWidth,
+    document.documentElement.clientHeight
+  );
+  // window.scrollTo(
+  //   s1coords.left + window.scrollX,
+  //   s1coords.top + window.scrollY
+  // );
+  // window.scrollTo({
+  //   top: s1coords.top + window.scrollY,
+  //   right: s1coords.left + window.scrollX,
+  //   behavior: 'smooth',
+  // });
+
+  section1.scrollIntoView({
+    behavior: 'smooth',
+    // block: 'start',
+    // inline: 'start',
+  });
+});
