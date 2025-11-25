@@ -90,3 +90,32 @@ console.log(message.style.color); // Returns an empty string because it's not se
 console.log(message.style.backgroundColor); // Returns the inline style value
 
 console.log('Computed style', getComputedStyle(message).color);
+console.log('Computed style', getComputedStyle(message).height);
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+console.log('Computed style', getComputedStyle(message).height);
+
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt);
+console.log(logo.src);
+console.log(logo.className);
+
+logo.alt = 'Beautiful minimalist logo';
+
+// Non-standard attributes
+console.log(logo.designer);
+console.log(logo.getAttribute('designer'));
+logo.setAttribute('company', 'Bankist');
+
+console.log(logo.src);
+console.log(logo.getAttribute('src'));
+
+const link = document.querySelector('.nav__link--btn');
+console.log(link.src);
+console.log(link.getAttribute('href'));
+
+// Data attributed
+console.log(logo.dataset.versionNumber);
